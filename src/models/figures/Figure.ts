@@ -17,7 +17,7 @@ export class Figure {
   logo: typeof logo | null;
   cell: Cell;
   name: FigureNames;
-  id: number;
+  id: number; 
 
 
   constructor (color: Colors, cell: Cell) {

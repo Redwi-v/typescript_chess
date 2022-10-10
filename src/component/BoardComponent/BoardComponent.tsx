@@ -1,5 +1,6 @@
-import { Fragment, FunctionComponent, useEffect } from "react";
+import { Fragment, FunctionComponent, useState } from "react";
 import { Board } from "../../models/Board";
+import { Cell } from "../../models/Cell";
 import CellComponet from "../CellComponent/CellComponent";
 
 
@@ -11,9 +12,14 @@ interface BoardProps {
 
 
 const BoardCompoents: FunctionComponent<BoardProps> = ({ board, setBoard }) => {
-  useEffect(() => {
-    console.log(board)
-  }, [board])
+  const [selectedFigure, setSelectedFigure] = useState<Cell | null>(null)
+
+
+  const chooseFigure = (cell: Cell) => {
+    if (cell.figure) {
+      setSelectedFigure(cell)
+    }
+  }
 
   return (
     <div className="">
@@ -22,7 +28,13 @@ const BoardCompoents: FunctionComponent<BoardProps> = ({ board, setBoard }) => {
           board.cells.map((row, index) => {
             return (
               <Fragment key={index}>
-                {row.map((cell, cellIndex) => <CellComponet cell={cell} key={cellIndex} />)}
+                {row.map((cell, cellIndex) =>
+                  <CellComponet
+                    chooseFigure={chooseFigure}
+                    cell={cell}
+                    key={cellIndex}
+                    selected={cell.x === selectedFigure?.x && cell.y === selectedFigure?.y} />
+                )}
               </Fragment>
             )
           })}
