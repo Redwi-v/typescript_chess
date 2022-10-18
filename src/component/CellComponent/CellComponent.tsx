@@ -15,8 +15,14 @@ const CellComponet: FC<CellProps> = ({ cell, selected, chooseFigure }) => {
 
   return (
     <div
-      className={`cell ${cell.color} ${selected ? 'selected' : ''}`}
+      className={`
+        cell 
+        ${cell.color} 
+        ${selected ? 'selected' : ''}
+        ${cell.available && cell.figure ? 'available_to_kill' : ''}
+      `}
       onClick={() => chooseFigure(cell)}
+
     >
       {cell.figure?.logo && <img src={cell.figure.logo} />}
       {!cell.figure && cell.available && <div className="available" />}

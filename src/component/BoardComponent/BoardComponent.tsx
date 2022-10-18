@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent, useState } from "react";
+import { Fragment, FunctionComponent, useEffect, useState } from "react";
 import { Board } from "../../models/Board";
 import { Cell } from "../../models/Cell";
 import CellComponet from "../CellComponent/CellComponent";
@@ -12,14 +12,32 @@ interface BoardProps {
 
 
 const BoardCompoents: FunctionComponent<BoardProps> = ({ board, setBoard }) => {
-  const [selectedFigure, setSelectedFigure] = useState<Cell | null>(null)
+  const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
 
 
   const chooseFigure = (cell: Cell) => {
-    if (cell.figure) {
-      setSelectedFigure(cell)
+    if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
+      selectedCell.moveFigure(cell)
+      setSelectedCell(null)
+    } else {
+      setSelectedCell(cell)
     }
+
   }
+
+  useEffect(() => {
+    highlightCells()
+  }, [selectedCell])
+
+  const updateBoard = () => {
+    const newBoard = board.getCopyBoard()
+    setBoard(newBoard)
+  }
+  const highlightCells = () => {
+    board.highlightCells(selectedCell)
+    updateBoard()
+  }
+
 
   return (
     <div className="">
@@ -33,7 +51,7 @@ const BoardCompoents: FunctionComponent<BoardProps> = ({ board, setBoard }) => {
                     chooseFigure={chooseFigure}
                     cell={cell}
                     key={cellIndex}
-                    selected={cell.x === selectedFigure?.x && cell.y === selectedFigure?.y} />
+                    selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y} />
                 )}
               </Fragment>
             )
