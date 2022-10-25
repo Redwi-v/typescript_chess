@@ -72,7 +72,45 @@ select {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+}
+.container h1 {
+  margin: 10% 0 10px 0;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background: rgb(113, 113, 113);
+  color: #fff;
+}
+
+.main {
+  display: flex;
+}
+.lost_figures {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+  width: 210px;
+}
+.lost_figures_component {
+  height: 50%;
+  background: rgb(115, 114, 114);
+  padding: 10px;
+}
+.lost_figures_component img {
+  max-width: 30px;
+}
+.lost_figures_component h2 {
+  color: #fff;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.lost_figures_component ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.lost_figures_component li:not(:last-child) {
+  margin-bottom: 10px;
 }
 
 .board {
